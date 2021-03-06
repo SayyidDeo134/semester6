@@ -17,4 +17,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('kategori', 'KategoriController@index');
+// $router->get('kategori', 'KategoriController@index');
+$router->group(['prefix' => 'api'], function() use ($router){
+    $router->get('kategori', ['uses' => 'KategoriController@index']);
+});
