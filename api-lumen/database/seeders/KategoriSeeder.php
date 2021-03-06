@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kategori;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class KategoriSeeder extends Seeder
 {
@@ -14,5 +16,13 @@ class KategoriSeeder extends Seeder
     public function run()
     {
         //
+        $faker = Faker::create();
+        for ($i = 0; $i < 5; $i++) {
+            $data = [
+                'kategori'      =>  $faker->word()
+            ];
+
+            Kategori::create($data);
+        }
     }
 }
