@@ -39,6 +39,9 @@ class PelangganController extends Controller
     public function store(Request $request)
     {
         //
+        Pelanggan::create($request->all());
+
+        return response()->json('Data berhasil ditambahkan');
     }
 
     /**
