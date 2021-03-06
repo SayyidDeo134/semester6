@@ -15,6 +15,9 @@ class PelangganController extends Controller
     public function index()
     {
         //
+
+        $data = Pelanggan::all();
+        return response()->json($data);
     }
 
     /**
@@ -44,9 +47,10 @@ class PelangganController extends Controller
      * @param  \App\Models\Pelanggan  $pelanggan
      * @return \Illuminate\Http\Response
      */
-    public function show(Pelanggan $pelanggan)
+    public function show(Pelanggan $pelanggan, $id)
     {
-        //
+        $data = $pelanggan->where('idpelanggan', $id)->get();
+        return response()->json($data);
     }
 
     /**

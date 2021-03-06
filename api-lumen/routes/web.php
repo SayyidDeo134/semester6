@@ -18,6 +18,10 @@ $router->get('/', function () use ($router) {
 });
 
 // $router->get('kategori', 'KategoriController@index');
-$router->group(['prefix' => 'api'], function() use ($router){
+$router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('kategori', ['uses' => 'KategoriController@index']);
+    $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
+
+    $router->get('pelanggan', ['uses' => 'PelangganController@index']);
+    $router->get('pelanggan/{id}', ['uses' => 'PelangganController@show']);
 });
