@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -31,8 +32,27 @@ class LoginController extends Controller
         return response()->json($data);
     }
 
-    public function login()
+    public function login(Request $request)
     {
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::where('email', $email)->first();
+
+        if ($user->password === $password) {
+            $token = Str::random(40);
+            $user->api_token = $token;
+
+            return response()->json([
+                'pesan'     =>  'Login berhasil',
+                'token'     =>  $token,
+                'data'      =>  $user
+            ]);
+        } else {
+            return response()->json([
+                'pesan'     =>  'Login berhasil',
+                'data'      =>  []
+            ]);
+        }
     }
 
     //
