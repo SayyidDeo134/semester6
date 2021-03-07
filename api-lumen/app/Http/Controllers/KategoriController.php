@@ -76,9 +76,12 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, Kategori $kategori, $id)
     {
         //
+        $data = Kategori::where('idkategori', $id)->update($request->all());
+
+        return response()->json("Data berhasil di update");
     }
 
     /**
