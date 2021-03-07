@@ -38,10 +38,27 @@ class MenuController extends Controller
     public function store(Request $request)
     {
 
+        $this->validate($request, [
+            'idkategori'    =>  'required',
+            'menu'          =>  'required|unique:menus',
+            'gambar'        =>  'required',
+            'harga'         =>  'required'
+        ]);
         $gambar = $request->file('gambar');
         $ext = $gambar->getClientOriginalExtension();
         $filename = 'Upload-' . time() . '.' . $ext;
         $gambar->move('upload', $filename);
+
+        $data = [
+            'idkategori'    =>  $request->input('idkategori'),
+            'menu'          =>  $request->input('menu'),
+            'gambar'        =>  url('upload/' . $filename),
+            'harga'         =>  $request->input('harga')
+        ];
+
+        $respon = Menu::create($data);
+
+        return response()->json($respon);
     }
 
     /**
@@ -75,9 +92,33 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, Menu $menu, $id)
     {
-        //
+        $this->validate($request, [
+            'idkategori'    =>  'required',
+            'menu'          =>  'required|unique:menus',
+            'harga'         =>  'required'
+        ]);
+
+        $data = $menu->find($id);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $ext = $gambar->getClientOriginalExtension();
+            $filename = 'Upload-' . time() . '.' . $ext;
+            $gambar->move('upload', $filename);
+            $filename = url('upload/' . $filename);
+        } else {
+            $filename = $data->gambar;
+        }
+
+        $data->idkategori = $request->idkategori;
+        $data->menu = $request->menu;
+        $data->gambar = $filename;
+        $data->harga = $request->harga;
+        $data->save();
+
+        return response()->json($data);
     }
 
     /**
