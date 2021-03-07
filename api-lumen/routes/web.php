@@ -30,4 +30,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('pelanggan', ['uses' => 'PelangganController@store']);
     $router->delete('pelanggan/{id}', ['uses' => 'PelangganController@destroy']);
     $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
+
+    $router->get('menu', ['uses' => 'MenuController@index']);
+    $router->get('menu/{id}', ['uses' => 'MenuController@show']);
+    $router->post('menu', ['uses' => 'MenuController@store']);
+    $router->delete('menu/{id}', ['uses' => 'MenuController@destroy']);
+    $router->put('menu/{id}', ['uses' => 'MenuController@update']);
 });
