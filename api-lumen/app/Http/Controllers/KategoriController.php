@@ -90,9 +90,14 @@ class KategoriController extends Controller
         $this->validate($request, [
             'kategori'  =>  'required|unique:kategoris'
         ]);
-        Kategori::where('idkategori', $id)->update($request->all());
+        $data = Kategori::where('idkategori', $id)->update($request->all());
 
-        return response()->json("Data berhasil di update");
+        if ($data) {
+            return response()->json([
+                'pesan' => 'Data berhasil diubah',
+                'data'  => $data
+            ]);
+        }
     }
 
     /**

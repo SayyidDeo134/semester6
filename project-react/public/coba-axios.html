@@ -118,9 +118,32 @@
 
         }
 
+        function destroy() {
+            let id = 7;
+            link.delete('/kategori/' + id).then(response => {
+                let tampil = ` <h1> Data kategori berhasil dihapus </h1> `;
+                document.querySelector('#out').innerHTML = tampil;
+            })
+        }
+
+        function update() {
+            let id = 2;
+            let data = {
+                kategori: 'Kategori kedua'
+            };
+            link.put('/kategori/' + id, data).then(response => {
+                let responseData = response.data.data;
+                console.log(response);
+                let tampil = ` <h1> Data kategori berhasil diubah </h1> `;
+                document.querySelector('#out').innerHTML = tampil;
+            })
+        }
+
         document.querySelector('#get').addEventListener('click', get)
         document.querySelector('#show').addEventListener('click', show)
         document.querySelector('#post').addEventListener('click', post)
+        document.querySelector('#delete').addEventListener('click', destroy)
+        document.querySelector('#put').addEventListener('click', update)
 
     </script>
 </body>
