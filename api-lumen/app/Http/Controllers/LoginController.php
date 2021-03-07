@@ -41,6 +41,7 @@ class LoginController extends Controller
         if ($user->password === $password) {
             $token = Str::random(40);
             $user->api_token = $token;
+            $user->save();
 
             return response()->json([
                 'pesan'     =>  'Login berhasil',
