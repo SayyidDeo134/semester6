@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('login', 'LoginController@index');
-$router->group(['prefix' => 'api', 'middleware' => 'user'], function () use ($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('kategori', ['uses' => 'KategoriController@index']);
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
     $router->post('kategori', ['uses' => 'KategoriController@store']);
