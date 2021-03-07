@@ -38,7 +38,11 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'pelanggan'     =>  'required',
+            'alamat'        =>  'required',
+            'telp'          =>  'required|unique:pelanggans'
+        ]);
         Pelanggan::create($request->all());
 
         return response()->json('Data berhasil ditambahkan');
@@ -76,6 +80,12 @@ class PelangganController extends Controller
      */
     public function update(Request $request, Pelanggan $pelanggan, $id)
     {
+        $this->validate($request, [
+            'pelanggan'     =>  'required',
+            'alamat'        =>  'required',
+            'telp'          =>  'required|unique:pelanggans'
+        ]);
+
         Pelanggan::where('idpelanggan', $id)->update($request->all());
 
         return response()->json("Data berhasil diupdate");
