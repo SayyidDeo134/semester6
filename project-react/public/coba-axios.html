@@ -76,7 +76,37 @@
             })
         }
 
+        function show() {
+            let id = 1;
+
+            link.get('/kategori/' + id).then(response => {
+                let data = response.data;
+                console.log(data);
+                let tampil = `
+                    <table class="table" >
+                        <tr>
+                            <th>ID</th>
+                            <th>Kategori</th>
+                        </tr>
+                `;
+                data.forEach(el => {
+                    tampil += `
+                        <tr>
+                            <td> ${el.idkategori} </td>
+                            <td> ${el.kategori} </td>
+                        </tr>
+                    `;
+                });
+
+                tampil += `
+                    </table>
+                `;
+                document.querySelector('#out').innerHTML = tampil;
+            })
+        }
+
         document.querySelector('#get').addEventListener('click', get)
+        document.querySelector('#show').addEventListener('click', show)
 
     </script>
 </body>
