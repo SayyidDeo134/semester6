@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coba Axios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-md-12">
+                <h1>Belajar Axios</h1>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary" id="get">GET</button>
+                <button class="btn btn-secondary" id="show">SHOW</button>
+                <button class="btn btn-success" id="post">POST</button>
+                <button class="btn btn-danger" id="delete">DELETE</button>
+                <button class="btn btn-warning" id="put">PUT</button>
+            </div>
+            <hr class="mt-4">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="out"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <script>
+
+        let url = 'http://localhost:8000/api';
+        let token = 'ZI26Mu9kd9n7VxUS4W7bafiP8aVmqIGB2GKG2mwE';
+
+        const link = axios.create({
+            baseURL: url,
+            headers: {
+                'api_token': token
+            }
+        });
+
+        function get() {
+            link.get('/kategori').then(response => {
+                let data = response.data;
+                let tampil = `
+                    <table class="table" >
+                        <tr>
+                            <th>ID</th>
+                            <th>Kategori</th>
+                        </tr>
+                `;
+                data.forEach(el => {
+                    tampil += `
+                        <tr>
+                            <td> ${el.idkategori} </td>
+                            <td> ${el.kategori} </td>
+                        </tr>
+                    `;
+                });
+
+                tampil += `
+                    </table>
+                `;
+
+                document.querySelector('#out').innerHTML = tampil;
+            })
+        }
+
+        document.querySelector('#get').addEventListener('click', get)
+
+    </script>
+</body>
+
+</html>
