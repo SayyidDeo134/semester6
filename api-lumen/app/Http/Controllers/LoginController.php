@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+
 class LoginController extends Controller
 {
     /**
@@ -14,9 +17,22 @@ class LoginController extends Controller
         //
     }
 
-    public function index()
+    public function register(Request $request)
     {
-        return response()->json('Unauthorized');
+        $data = new User();
+        $data->email = $request->email;
+        $data->password = $request->password;
+        $data->level = 'pelanggan';
+        $data->api_token = '12345';
+        $data->status = '1';
+        $data->relasi = $request->email;
+        $data->save();
+
+        return response()->json($data);
+    }
+
+    public function login()
+    {
     }
 
     //

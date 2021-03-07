@@ -17,7 +17,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('login', 'LoginController@index');
+$router->post('api/login', 'LoginController@login');
+$router->post('api/register', 'LoginController@register');
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('kategori', ['uses' => 'KategoriController@index']);
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
