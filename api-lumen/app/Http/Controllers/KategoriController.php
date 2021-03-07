@@ -43,9 +43,14 @@ class KategoriController extends Controller
             'kategori'  =>  'required|unique:kategoris'
         ]);
 
-        Kategori::create($request->all());
+        $kategori = Kategori::create($request->all());
 
-        return response()->json("Data berhasil di tambahkan");
+        if ($kategori) {
+            return response()->json([
+                'pesan' => 'Data berhasil ditambahkan',
+                'data'  => $kategori
+            ]);
+        }
     }
 
     /**

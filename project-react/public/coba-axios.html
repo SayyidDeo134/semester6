@@ -105,8 +105,22 @@
             })
         }
 
+        function post() {
+            let data = {
+                kategori: 'Kategori axios'
+            };
+
+            link.post('/kategori', data).then(response => {
+                let responseData = response.data.data;
+                let tampil = ` <h1> Data kategori baru berhasil ditambahkan : ${responseData.kategori} </h1> `;
+                document.querySelector('#out').innerHTML = tampil;
+            })
+
+        }
+
         document.querySelector('#get').addEventListener('click', get)
         document.querySelector('#show').addEventListener('click', show)
+        document.querySelector('#post').addEventListener('click', post)
 
     </script>
 </body>
