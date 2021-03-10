@@ -14,7 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $data = Menu::all();
+        // $data = Menu::all();
+        $data = Menu::select('menus.*', 'kategori')
+            ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')->get();
 
         return response()->json($data);
     }
@@ -58,7 +60,10 @@ class MenuController extends Controller
 
         $respon = Menu::create($data);
 
-        return response()->json($respon);
+        return response()->json([
+            'pesan' =>  'menu berhasil disimpan',
+            'data'  =>  $respon
+        ]);
     }
 
     /**
@@ -69,7 +74,9 @@ class MenuController extends Controller
      */
     public function show(Menu $menu, $id)
     {
-        $data = $menu->where('idkategori', $id)->get();
+        $data = $menu->select('menus.*', 'kategori')
+            ->where('idmenu', $id)
+            ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')->get();
 
         return response()->json($data);
     }
@@ -96,7 +103,7 @@ class MenuController extends Controller
     {
         $this->validate($request, [
             'idkategori'    =>  'required',
-            'menu'          =>  'required|unique:menus',
+            'menu'          =>  'required',
             'harga'         =>  'required'
         ]);
 
@@ -118,7 +125,10 @@ class MenuController extends Controller
         $data->harga = $request->harga;
         $data->save();
 
-        return response()->json($data);
+        return response()->json([
+            'pesan' =>  'menu berhasil diubah',
+            'data'  =>  $data
+        ]);
     }
 
     /**
